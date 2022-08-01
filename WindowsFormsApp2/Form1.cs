@@ -12,9 +12,9 @@ namespace WindowsFormsApp2
 {
     public partial class Form1 : Form
     {
-        bool playerTurn = true;// X Turn -> true , O Turn -> false
+        bool playerTurn = true;
         int turnCount = 0;
-        int winStreak = 0; // Positive for X, Negative for O
+        int winStreak = 0;
 
         public Form1()
         {
@@ -39,17 +39,17 @@ namespace WindowsFormsApp2
 
         private void buttonClick(object sender, EventArgs e)
         {
-            Button theButton = (Button)sender;
+            Button theButtton = (Button)sender;
 
             if (playerTurn)
             {
-                theButton.Text = "X";
-                theButton.Enabled = false;
+                theButtton.Text = "X";
+                theButtton.Enabled = false;
             }
             else
             {
-                theButton.Text = "O";
-                theButton.Enabled = false;
+                theButtton.Text = "O";
+                theButtton.Enabled = false;
             }
 
             turnCount++;
@@ -57,54 +57,59 @@ namespace WindowsFormsApp2
             checkWinner();
         }
 
-        public void checkWinner()
+        private void checkWinner()
         {
-            bool haveWinner = false;
+
+            bool weHaveWinner = false;
+
+
             //---
             if ((A1.Text == A2.Text) && (A2.Text == A3.Text) && (!A2.Enabled))
-                haveWinner = true;
+                weHaveWinner = true;
             else if ((B1.Text == B2.Text) && (B2.Text == B3.Text) && (!B2.Enabled))
-                haveWinner = true;
+                weHaveWinner = true;
             else if ((C1.Text == C2.Text) && (C2.Text == C3.Text) && (!C2.Enabled))
-                haveWinner = true;
+                weHaveWinner = true;
 
             // |||
             else if ((A1.Text == B1.Text) && (B1.Text == C1.Text) && (!B1.Enabled))
-                haveWinner = true;
+                weHaveWinner = true;
             else if ((A2.Text == B2.Text) && (B2.Text == C2.Text) && (!B2.Enabled))
-                haveWinner = true;
+                weHaveWinner = true;
             else if ((A3.Text == B3.Text) && (B3.Text == C3.Text) && (!B3.Enabled))
-                haveWinner = true;
+                weHaveWinner = true;
 
             //X
             else if ((A1.Text == B2.Text) && (B2.Text == C3.Text) && (!B2.Enabled))
-                haveWinner = true;
+                weHaveWinner = true;
             else if ((A3.Text == B2.Text) && (B2.Text == C1.Text) && (!B2.Enabled))
-                haveWinner = true;
+                weHaveWinner = true;
 
-            if (haveWinner)
+
+            if (weHaveWinner)
             {
+
                 String winner = "";
 
                 if (playerTurn)
-                    winner = "O";
+                    winner = "0";
                 else
                     winner = "X";
                 updateWinStreak(winner);
 
-                MessageBox.Show(winner + "Wins!");
+                MessageBox.Show(winner + " Wins!", "GG");
                 autoNewGame();
             }
-
             else
             {
-                if (turnCount ==9)
+                if (turnCount == 9)
                 {
                     MessageBox.Show("Draw");
                     autoNewGame();
-
                 }
+
             }
+
         }
 
         private void autoNewGame()
@@ -130,13 +135,13 @@ namespace WindowsFormsApp2
         {
             if (winner == "X")
             {
-                if (winStreak < 0)
+                if (winStreak < 0) 
                     winStreak = 0;
                 winStreak++;
             }
             else if (winner == "O")
             {
-                if (winStreak > 0)
+                if (winStreak > 0) 
                     winStreak = 0;
                 winStreak--;
             }
